@@ -50,8 +50,8 @@ class Product(models.Model):
         'наименование',
         max_length=255
     )
-    purchase_price = models.IntegerField('закупочная цена')
-    retail_price = models.IntegerField('розничная цена')
+    purchase_price = models.PositiveIntegerField('закупочная цена')
+    retail_price = models.PositiveIntegerField('розничная цена')
 
     def __str__(self):
         return '%s' % self.title
