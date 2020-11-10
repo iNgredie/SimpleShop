@@ -50,8 +50,16 @@ class Product(models.Model):
         'наименование',
         max_length=255
     )
-    purchase_price = models.PositiveIntegerField('закупочная цена')
-    retail_price = models.PositiveIntegerField('розничная цена')
+    purchase_price = models.DecimalField(
+        'закупочная цена',
+        max_digits=10,
+        decimal_places=2
+    )
+    retail_price = models.DecimalField(
+        'розничная цена',
+        max_digits=10,
+        decimal_places=2
+    )
 
     def __str__(self):
         return '%s' % self.title
@@ -70,9 +78,20 @@ class ShoppingCart(models.Model):
         on_delete=models.CASCADE,
         related_name='product'
     )
-    amount = models.PositiveIntegerField('количество', default=0)
-    price = models.PositiveIntegerField('цена')
-    total = models.PositiveIntegerField('сумма')
+    amount = models.PositiveIntegerField(
+        'количество',
+        default=0
+    )
+    price = models.DecimalField(
+        'цена',
+        max_digits=10,
+        decimal_places=2
+    )
+    total = models.DecimalField(
+        'сумма',
+        max_digits=10,
+        decimal_places=2
+    )
 
     def save(self, *args, **kwargs):
         # функция рассчитывает сумму в корзине
