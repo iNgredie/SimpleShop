@@ -13,10 +13,11 @@ class AddingProducts:
         with requests.get(url, stream=True) as r:
             lines = (line.decode('utf-8') for line in r.iter_lines())
             for row in csv.DictReader(lines, delimiter=';'):
+                v_code = 'ПТ' + row['Код товара']
                 p_price = int(row['Цена']) * 0.9
                 r_price = int(row['Цена']) * 1.2 if int(row['Цена']) < 1000 else int(row['Цена']) * 1.1
                 p = Product(
-                    vendor_code=row['Код товара'],
+                    vendor_code=v_code,
                     title=row['Наименование'],
                     purchase_price=p_price,
                     retail_price=r_price
