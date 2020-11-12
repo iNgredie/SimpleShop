@@ -97,7 +97,6 @@ class ShoppingCart(models.Model):
         # функция рассчитывает сумму в корзине
         self.price = self.product.retail_price
         self.total = self.price * self.amount
-        super(ShoppingCart, self).save(*args, **kwargs)
 
         # если у пользователя есть корзина, новую не создает
         if not self.pk and ShoppingCart.objects.exists():
