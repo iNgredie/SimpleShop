@@ -4,7 +4,7 @@ from rest_framework.serializers import ModelSerializer
 from store.models import StoreUser, Product, ShoppingCart
 
 
-class StoreUserSerializer(serializers.ModelSerializer):
+class StoreUserSerializer(ModelSerializer):
     class Meta:
         model = StoreUser
         fields = (
@@ -24,7 +24,7 @@ class ProductSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class ShoppingCartSerializer(serializers.ModelSerializer):
+class ShoppingCartSerializer(ModelSerializer):
     client_name = serializers.StringRelatedField(
         source='client',
         read_only=True

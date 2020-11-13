@@ -125,7 +125,6 @@ class ShoppingCartApiTestCase(TestCase):
             price=26,
             total=260
         )
-        # self.cart.refresh_from_db()
 
     def test_get_cart(self):
         url = reverse('shoppingcart-list')
@@ -157,30 +156,3 @@ class ShoppingCartApiTestCase(TestCase):
         self.assertEqual(10, self.cart.amount)
         self.assertEqual(600, self.cart.total)
 
-    def test_update_not_client(self):
-        self.user2 = get_user_model().objects.create_user(
-            username='user2',
-            email='user2@example.com',
-            password='80kapaar1'
-        )
-        url = reverse('shoppingcart-detail', args=(self.cart.id,))
-        data = {
-            'client': 'user',
-            'product': self.cart.product.title,
-            'amount': 10,
-            'price': self.product.retail_price,
-            'total': 600
-        }
-        json_data = json.dumps(data)
-        self.client.force_login(self.user2)
-        response = self.client.put(
-            url,
-            data=json_data,
-            content_type='application/json'
-        )
-        print(self.user2)
-        print(self.user)
-        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
-        self.cart.refresh_from_db()
-        self.assertEqual(10, self.cart.amount)
-        self.assertEqual(600, self.cart.total)
